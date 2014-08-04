@@ -94,7 +94,7 @@ $temperature = new Temperature();
 $temperature->setKelvin(373.15);
 $temperature->setCelsius(200);
 
-if ($temperature->getCelsius(200) === 200) {
+if ($temperature->getCelsius() === 200) {
     print "Success" . PHP_EOL;
 } else {
     print "Wrong value" . PHP_EOL;

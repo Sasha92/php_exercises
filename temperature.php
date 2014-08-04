@@ -80,7 +80,7 @@ if (
 // Another one check that show problems in current implementation
 $temperature = new Temperature();
 $temperature->setKelvin(373.15);
-$temperature->getCelsius(200);
+$temperature->setCelsius(200);
 
 if ($temperature->getCelsius() === 200) {
     print "Success" . PHP_EOL;

@@ -12,9 +12,6 @@ class Temperature
     private $degree;
     private $kelvin;
     private $fahrenheit;
-    public $celsius;
-    public $kelvin2;
-    public $fahrenheit2;
 
     public function setCelsius($degree)
     {
@@ -31,45 +28,37 @@ class Temperature
         $this->fahrenheit = $degree;
     }
 
-    public function getCelsius($celsius = null)
+    public function getCelsius()
     {
-        $this->celsius = $celsius;
-        if (!is_null($this->celsius)) {
-            return $this->celsius;
+        if (isset($this->degree)) {
+            return $this->degree;
         } elseif (isset($this->kelvin)) {
             return $this->kelvin - 273.15;
-        } elseif (isset($this->fahrenheit)) {
-            return ($this->fahrenheit - 32) * 5 / 9;
         } else {
-            return $this->degree;
+            return ($this->fahrenheit - 32) * 5 / 9;
         }
     }
 
-    public function getKelvin($kelvin2 = null)
+    public function getKelvin()
     {
-        $this->kelvin2 = $kelvin2;
-        if (!is_null($this->kelvin2)) {
-            return $this->kelvin2;
+
+        if (isset($this->kelvin)) {
+            return $this->kelvin;
         } elseif (isset($this->degree)) {
             return $this->degree + 273.15;
-        } elseif (isset($this->fahrenheit)) {
-            return ($this->fahrenheit + 459.67) * 5 / 9;
         } else {
-            return $this->kelvin;
+            return ($this->fahrenheit + 459.67) * 5 / 9;
         }
     }
 
-    public function getFahrenheit($fahrenheit2 = null)
+    public function getFahrenheit()
     {
-        $this->fahrenheit2 = $fahrenheit2;
-        if (!is_null($this->fahrenheit2)) {
-            return $this->fahrenheit2;
+        if (isset($this->fahrenheit)) {
+            return $this->fahrenheit;
         } elseif (isset($this->degree)) {
             return $this->degree * 9 / 5 + 32;
-        } elseif (isset($this->kelvin)) {
-            return $this->kelvin * 9 / 5 - 459.67;
         } else {
-            return $this->fahrenheit;
+            return $this->kelvin * 9 / 5 - 459.67;
         }
     }
 
@@ -99,4 +88,3 @@ if ($temperature->getCelsius() === 200) {
 } else {
     print "Wrong value" . PHP_EOL;
 }
-

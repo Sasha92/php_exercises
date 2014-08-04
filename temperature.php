@@ -88,3 +88,14 @@ if ($temperature->getCelsius() === 200) {
 } else {
     print "Wrong value" . PHP_EOL;
 }
+
+// New check. Please think what is main problem with current Temperature class implementation
+$temperature = new Temperature();
+$temperature->setCelsius(200);
+$temperature->setKelvin(373.15);
+
+if ($temperature->getCelsius() === 100) {
+    print "Success" . PHP_EOL;
+} else {
+    print "Wrong value" . PHP_EOL;
+}

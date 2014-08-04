@@ -76,3 +76,15 @@ if (
 } else {
     print "Wrong value" . PHP_EOL;
 }
+
+// Another one check that show problems in current implementation
+$temperature = new Temperature();
+$temperature->setKelvin(373.15);
+$temperature->getCelsius(200);
+
+if ($temperature->getCelsius() === 200) {
+    print "Success" . PHP_EOL;
+} else {
+    print "Wrong value" . PHP_EOL;
+}
+

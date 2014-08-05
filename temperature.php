@@ -9,63 +9,40 @@
 // SetFahrenheit($degree) - sets temperature value in Fahrenheit
 class Temperature
 {
-    private $degree;
-    private $kelvin;
-    private $fahrenheit;
+    private $celcius;
 
-    public function setCelsius($degree)
+
+    public function setCelsius($celcius)
     {
-        $this->degree = $degree;
-        $this->kelvin = null;
-        $this->fahrenheit = null;
+        $this->celcius = $celcius;
     }
 
     public function setKelvin($kelvin)
     {
-      $this->kelvin = $kelvin;
-        $this->degree = null;
-        $this->fahrenheit = null;
+      $this->celcius = $kelvin - 273.15;
+
     }
 
     public function setFahrenheit($fahrenheit)
     {
-        $this->fahrenheit = $fahrenheit;
-        $this->degree = null;
-        $this->kelvin = null;
+        $this->celcius = ($fahrenheit -32)*5/9;
     }
 
     public function getCelsius()
     {
-        if (isset($this->fahrenheit)) {
-            return ($this->fahrenheit - 32) * 5 / 9;
-        } elseif (isset($this->kelvin)) {
-            return $this->kelvin - 273.15;
-        } else {
-            return $this->degree;
-        }
+            return $this->celcius;
+
     }
 
     public function getKelvin()
     {
 
-        if (isset($this->kelvin)) {
-            return $this->kelvin;
-        } elseif (isset($this->degree)) {
-            return $this->degree + 273.15;
-        } else {
-            return ($this->fahrenheit + 459.67) * 5 / 9;
-        }
+            return $this->celcius + 273.15;
     }
 
     public function getFahrenheit()
     {
-        if (isset($this->fahrenheit)) {
-            return $this->fahrenheit;
-        } elseif (isset($this->degree)) {
-            return $this->degree * 9 / 5 + 32;
-        } else {
-            return $this->kelvin * 9 / 5 - 459.67;
-        }
+            return $this->celcius * 9 / 5 + 32;
     }
 
 }

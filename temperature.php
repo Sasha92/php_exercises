@@ -16,26 +16,32 @@ class Temperature
     public function setCelsius($degree)
     {
         $this->degree = $degree;
+        $this->kelvin = null;
+        $this->fahrenheit = null;
     }
 
-    public function setKelvin($degree)
+    public function setKelvin($kelvin)
     {
-        $this->kelvin = $degree;
+      $this->kelvin = $kelvin;
+        $this->degree = null;
+        $this->fahrenheit = null;
     }
 
-    public function setFahrenheit($degree)
+    public function setFahrenheit($fahrenheit)
     {
-        $this->fahrenheit = $degree;
+        $this->fahrenheit = $fahrenheit;
+        $this->degree = null;
+        $this->kelvin = null;
     }
 
     public function getCelsius()
     {
-        if (isset($this->degree)) {
-            return $this->degree;
+        if (isset($this->fahrenheit)) {
+            return ($this->fahrenheit - 32) * 5 / 9;
         } elseif (isset($this->kelvin)) {
             return $this->kelvin - 273.15;
         } else {
-            return ($this->fahrenheit - 32) * 5 / 9;
+            return $this->degree;
         }
     }
 
@@ -94,7 +100,7 @@ $temperature = new Temperature();
 $temperature->setCelsius(200);
 $temperature->setKelvin(373.15);
 
-if ($temperature->getCelsius() === 100) {
+if ($temperature->getCelsius() === 100.0) {
     print "Success" . PHP_EOL;
 } else {
     print "Wrong value" . PHP_EOL;

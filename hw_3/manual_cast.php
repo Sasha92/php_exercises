@@ -5,20 +5,16 @@
  * (например “1252абв” в 1252)
  */
 
-// Rename this function, findNumber isn't good self-describing name
-function findNumber($str)
+function convertStringInNumber($str)
 {
     $n = strlen($str);
     if ($n > 0) {
         preg_match_all("/\d+/", $str, $numbers);
         foreach ($numbers as $number) {
             foreach ($number as $num)
-                // function should return value and not print anything
-                echo $num . PHP_EOL;
+                return $num;
         }
     }
 }
 
-findNumber('1252abc');
-
-assert((findNumber('1252abc') === 1252));
+assert((convertStringInNumber('1252abc') == 1252));

@@ -13,8 +13,7 @@ function isCorrect($brace)
     } elseif ($n % 2 === 1) {
         return false;
     }
-    // do you need this check?
-    elseif ($n > 0) {
+    else {
         // ( - a, )-b, {-c, }-d
         $brace = str_replace('(', 'a', $brace);
         $brace = str_replace(')', 'b', $brace);
@@ -25,7 +24,6 @@ function isCorrect($brace)
             $brace = preg_replace($pattern, '', $brace);
             if ($brace === '') return true;
         }
-        // do you need this check?
         if ($brace !== '') {
             return false;
         }

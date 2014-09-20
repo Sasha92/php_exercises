@@ -1,5 +1,5 @@
 <?php
-require_once 'braces.php';
+require_once 'braces_stack.php';
 
 
 /**
@@ -17,7 +17,7 @@ function testBrace($n, $brace)
     echo $end - $start;
 }
 
-testBrace(1000, generateIncorrectBraces(400));
+testBrace(1000, generateIncorrectBraces(40000));
 
 function generateIncorrectBraces($blocks)
 {

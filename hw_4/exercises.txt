@@ -1,0 +1,21 @@
+1. Write a PHP Calculator class which will accept two values as arguments,
+then add them,
+subtract them,
+multiply them together,
+or divide them on request.
+For example :
+$mycalc = new MyCalculator( 12, 6);
+echo $mycalc- > add(); // Displays 18
+echo $mycalc- > multiply(); // Displays 72
+
+2. Write a function that removes the last word from a string
+Sample string : 'The quick brown fox'
+Expected Output : The quick brown
+
+3. Write a function to remove non numeric characters except comma and dot.
+Sample string : '$123,34.00A'
+Expected Output : 12,334.00
+
+4. Write a function to remove all characters from a string except a-z A-Z 0-9 or " ".
+Sample string : abcde$ddfd @abcd )der]
+Expected Result : abcdeddfd abcd der

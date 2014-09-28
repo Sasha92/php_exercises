@@ -7,27 +7,22 @@
  */
 function isCorrect($brace)
 {
-    $n = strlen($brace);
+    $length = strlen($brace);
     if (empty($brace)) {
         return true;
-    } elseif ($n % 2 === 1) {
+    }
+
+    if ($length % 2 === 1) {
         return false;
     }
-    else {
-        // ( - a, )-b, {-c, }-d
-        $brace = str_replace('(', 'a', $brace);
-        $brace = str_replace(')', 'b', $brace);
-        $brace = str_replace('{', 'c', $brace);
-        $brace = str_replace('}', 'd', $brace);
-        for ($i = 0; $i < $n; $i++) {
-            $pattern = '/ab|cd/';
-            $brace = preg_replace($pattern, '', $brace);
-            if ($brace === '') return true;
-        }
-        if ($brace !== '') {
-            return false;
-        }
+
+    for ($i = 0; $i < $length / 2; $i++) {
+        $brace = str_replace(['()', '{}'], '', $brace);
+        if ($brace === '') return true;
     }
+
+    return false;
+
 }
 
 assert(isCorrect('') === true);

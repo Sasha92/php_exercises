@@ -9,11 +9,12 @@ function convertStringInNumber($str)
 {
     $n = strlen($str);
     if ($n > 0) {
+        $result ='';
         preg_match_all("/\d+/", $str, $numbers);
-        foreach ($numbers as $number) {
-            foreach ($number as $num)
-                return $num;
+        foreach ($numbers[0] as $number) {
+            $result .= $number;
         }
+        return $result;
     }
 }
 

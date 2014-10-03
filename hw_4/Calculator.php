@@ -18,33 +18,38 @@ class Calculator
     private $a;
     private $b;
 
-    function __construct($a, $b)
+    public function __construct($a, $b)
     {
-        if (is_numeric($a) && is_numeric($b)){
-            $this->a = $a;
-            $this->b = $b;
+        if (!is_numeric($a)){
+            throw new Exception ('First value isn\'t numeric');
         }
+
+        if (!is_numeric($b)) {
+            throw new Exception ('Second value isn\'t numeric');
+        }
+        $this->a = $a;
+        $this->b = $b;
     }
 
-    function add()
+    public function add()
     {
         return $this->a + $this->b;
     }
 
-    function subtract()
+    public function subtract()
     {
         return $this->a - $this->b;
     }
 
-    function multiply()
+    public function multiply()
     {
         return $this->a * $this->b;
     }
 
-    function divide()
+    public function divide()
     {
-        if ($this->b === 0) {
-            return 'Divizion by zero';
+        if ($this->b == 0) {
+            throw new \Exception('Divizion by zero');
         }
         return $this->a / $this->b;
     }
@@ -55,3 +60,4 @@ echo $mycalc->add() . PHP_EOL; // Displays 18
 echo $mycalc->multiply() . PHP_EOL; // Displays 72
 echo $mycalc->subtract() . PHP_EOL; // Displays 6
 echo $mycalc->divide() . PHP_EOL; // Displays 2
+

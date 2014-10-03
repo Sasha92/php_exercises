@@ -10,10 +10,6 @@ function deleteNonNumeric($string)
     $string = trim($string);
     $length = strlen($string);
 
-    if ($length === 0) {
-        return 'String is empty';
-    }
-
     $position_dot = strrpos($string, '.');
 
     $number = '';

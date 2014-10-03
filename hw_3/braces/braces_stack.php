@@ -1,5 +1,4 @@
 <?php
-error_reporting(~E_NOTICE);
 /**
  * Есть два вида скобок, {}, (),
  * дана входная строка, состоящая из этих символов,
@@ -19,21 +18,21 @@ function isCorrect($brace)
     $arr = array();
     for ($i = 0, $j = 0; $i < $length; $i++)  {
 
-        if (ord($brace[$i]) === 40 && ord($brace[$i+1]) === 125 || ord($brace[$i]) === 123 && ord($brace[$i+1]) === 41) {
+        if ($brace[$i] === '(' &&  $brace[$i+1] === '}' || $brace[$i] === '{' &&  $brace[$i+1] === ')') {
            return false;
         }
 
-        if (ord($brace[$i]) === 40 || ord($brace[$i]) === 123) {
-            $arr[$j] = ord($brace[$i]);
+        if ($brace[$i] === '(' || $brace[$i] === '{') {
+            $arr[$j] = $brace[$i];
             ++$j;
         }
 
-        if (ord($brace[$i]) === 41 && ($arr[$j - 1] === 40 || $arr[0] === 40)) {
+        if ($brace[$i] === ')' && ($arr[$j - 1] === '(' || $arr[0] === '(')) {
             array_pop($arr);
             --$j;
         }
 
-        if (ord($brace[$i]) === 125 && ($arr[$j - 1] === 123 || $arr[0] === 123)) {
+        if ($brace[$i] === '}' && ($arr[$j - 1] === '{' || $arr[0] === '{')) {
             array_pop($arr);
             --$j;
         }

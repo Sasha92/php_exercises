@@ -8,12 +8,6 @@ Expected Output : 12,334.00
 function deleteNonNumeric($string)
 {
     $string = trim($string);
-    $length = strlen($string);
-
-    if ($length === 0) {
-        return 'String is empty';
-    }
-
     $number = '';
 
     preg_match_all('/(\d+|\.)+/', $string, $strings);

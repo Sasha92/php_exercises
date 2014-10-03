@@ -73,14 +73,26 @@ class Crossing
         Daughter::standUp();
     }
 }
+//
+//$children = new Children();
+//$father = new Father();
+//$mother = new Mother();
+//$fishman = new Fishman();
+/*
+$fishman = new AdultPerson('fishman');
+$son = new ChildPerson('son');
 
-$children = new Children();
-$father = new Father();
-$mother = new Mother();
-$fishman = new Fishman();
+$crossingAlgorithm = new Crossing();
+$crossingAlgorithm->addPerson($fishman);
+$crossingAlgorithm->addPerson($mother);
+$crossingAlgorithm->addPerson($father);
+$crossingAlgorithm->addPerson($son);
+$crossingAlgorithm->addPerson($daughter);
 
-//Children must be crossing last.
-$fishman->crossing();
-$mother->crossing();
-$father->crossing();
-$children->crossing();
+$crossingAlgorithm->storeToFile('file.txt');*/
+
+////Children must be crossing last.
+//$fishman->crossing();
+//$mother->crossing();
+//$father->crossing();
+//$children->crossing();

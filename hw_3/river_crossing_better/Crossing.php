@@ -53,11 +53,21 @@ class Crossing
         $this->children[1]->position_coast = 'right';
         $this->children[1]->position_boat = 0;
         $this->data .= "Children ({$this->children[0]->name} and {$this->children[1]->name}) crossing the river.(Now they are on the {$this->children[0]->position_coast} coast)" . PHP_EOL;
+    }
 
+    private function crossingFirstChild()
+    {
         $this->children[0]->position_coast = 'left';
         $this->children[0]->position_boat = 0;
         $this->data .= "{$this->children[0]->name} crossing the river.Now he (she) is on the {$this->children[0]->position_coast} coast." . PHP_EOL;
+    }
 
+    private function crossingSecondChild()
+    {
+        $this->children[1]->position_boat = 1;
+        $this->children[1]->position_coast = 'left';
+        $this->children[1]->position_boat = 0;
+        $this->data .= "{$this->children[1]->name} crossing the river.Now he (she) is on the {$this->children[1]->position_coast} coast." . PHP_EOL;
     }
 
     private function crossing()
@@ -69,44 +79,34 @@ class Crossing
         for ($j = 0; $j < $number_adults; $j++) {
 
             $this->crossingTwoChildren();
+            $this->crossingFirstChild();
 
             $this->adult[$j]->position_boat = 1;
             $this->adult[$j]->position_coast = 'right';
             $this->adult[$j]->position_boat = 0;
             $this->data .= "{$this->adult[$j]->name} crossing the river" . PHP_EOL;
 
-            $this->children[1]->position_boat = 1;
-            $this->children[1]->position_coast = 'left';
-            $this->children[1]->position_boat = 0;
-
+            $this->crossingSecondChild();
         }
+
         $number_children = count($this->children);
         if ($number_children > 2) {
             for ($j = 2; $j < $number_children; $j++) {
 
                 $this->crossingTwoChildren();
+                $this->crossingFirstChild();
 
                 $this->children[$j]->position_boat = 1;
                 $this->children[$j]->position_coast = 'right';
                 $this->children[$j]->position_boat = 0;
                 $this->data .= "{$this->children[$j]->name} crossing the river" . PHP_EOL;
 
-                $this->children[1]->position_boat = 1;
-                $this->children[1]->position_coast = 'left';
-                $this->children[1]->position_boat = 0;
-
+                $this->crossingSecondChild();
             }
         }
 
-        $this->children[0]->position_boat = 1;
-        $this->children[1]->position_boat = 1;
-
-        $this->children[0]->position_coast = 'right';
-        $this->children[1]->position_coast = 'right';
-        $this->data .= "Children ({$this->children[0]->name} and {$this->children[1]->name}) crossing the river.(Now they are on the {$this->children[0]->position_coast} coast)" . PHP_EOL;
-
+        $this->crossingTwoChildren();
         $this->children[0]->position_boat = 0;
-        $this->children[1]->position_boat = 0;
 
         $this->data .= "Fishman has a boat.";
     }

@@ -40,6 +40,10 @@ class Crossing
 
     private function crossing()
     {
+        $numberChildren = count($this->children);
+        if ($numberChildren < 2){
+            throw new \Exception ('Crossing impossible. Because number children is less 2.');
+        }
         $numberAdults = count($this->adult);
 
         for ($j = 0; $j < $numberAdults; $j++) {
@@ -53,7 +57,7 @@ class Crossing
             $this->crossingSecondChild();
         }
 
-        $numberChildren = count($this->children);
+
         if ($numberChildren > 2) {
             for ($j = 2; $j < $numberChildren; $j++) {
 

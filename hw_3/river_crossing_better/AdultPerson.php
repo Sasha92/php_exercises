@@ -6,5 +6,5 @@ require_once 'Person.php';
 
 class AdultPerson extends Person
 {
-    public $person_type = 'adult';
+    public $personType = 'adult';
 } 

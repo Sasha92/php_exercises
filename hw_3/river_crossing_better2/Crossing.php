@@ -10,7 +10,7 @@
 // какой берег перевез. Писать код на PHP5. Программа должна поддерживать
 // расширяемость, к примеру, если захотим добавить еще детей.
 
-namespace river_crossing_better;
+namespace river_crossing_better2;
 
 require_once 'AdultPerson.php';
 require_once 'ChildPerson.php';
@@ -18,88 +18,64 @@ require_once 'Person.php';
 
 class Crossing
 {
-    private $persons = array();
-    private $two_children = array();
+    private $twoChildren = array();
     private $adult = array();
     private $data;
-    public $file_name;
 
-    public function addPerson(Person $name)
+    public function addPerson(Person $person)
     {
-        return $this->persons[] = $name;
-    }
+        $numberChildren = count($this->twoChildren);
 
-    private function createTwoArrays()
-    {
-        $number_persons = count($this->persons);
-        $i = 0;
-        while( $i < $number_persons){
-
-            $number_children = count($this->two_children);
-            if ($this->persons[$i]->person_type === 'child' && $number_children < 2) {
-                $this->two_children[] = $this->persons[$i];
-            }
-            // Array adult has adult persons and another children, that not in array two_children
-            if ($this->persons[$i]->person_type === 'adult' ||
-                ($this->persons[$i]->person_type === 'child' && !in_array($this->persons[$i], $this->two_children))) {
-                $this->adult[] = $this->persons[$i];
-            }
-            ++$i;
+        if ($person->personType === 'child' && $numberChildren < 2) {
+            $this->twoChildren[] = $person;
+        }
+        // Array adult has adult persons and another children, that not in array two_children
+        if ($person->personType === 'adult' ||
+            ($person->personType === 'child' && !in_array($person, $this->twoChildren))) {
+            $this->adult[] = $person;
         }
     }
 
-    private function crossingTwoChildren()
+    public function storeToFile($fileName)
     {
-        $this->two_children[0]->position_boat = 1;
-        $this->two_children[1]->position_boat = 1;
-
-        $this->two_children[0]->position_coast = 'right';
-        $this->two_children[1]->position_coast = 'right';
-        $this->two_children[1]->position_boat = 0;
-        $this->data .= "Children ({$this->two_children[0]->name} and {$this->two_children[1]->name}) crossing the river.(Now they are on the {$this->two_children[0]->position_coast} coast)" . PHP_EOL;
-    }
-
-    private function crossingFirstChild()
-    {
-        $this->two_children[0]->position_coast = 'left';
-        $this->two_children[0]->position_boat = 0;
-        $this->data .= "{$this->two_children[0]->name} crossing the river.Now he (she) is on the {$this->two_children[0]->position_coast} coast." . PHP_EOL;
-    }
-
-    private function crossingSecondChild()
-    {
-        $this->two_children[1]->position_boat = 1;
-        $this->two_children[1]->position_coast = 'left';
-        $this->two_children[1]->position_boat = 0;
-        $this->data .= "{$this->two_children[1]->name} crossing the river.Now he (she) is on the {$this->two_children[1]->position_coast} coast." . PHP_EOL;
+        $this->crossing();
+        file_put_contents($fileName, $this->data);
     }
 
     private function crossing()
     {
-        $this->createTwoArrays();
+        $numberAdults = count($this->adult);
 
-        $number_adults = count($this->adult);
-
-        for ($j = 0; $j < $number_adults; $j++) {
+        for ($j = 0; $j < $numberAdults; $j++) {
 
             $this->crossingTwoChildren();
             $this->crossingFirstChild();
-            $this->adult[$j]->position_boat = 1;
-            $this->adult[$j]->position_coast = 'right';
-            $this->adult[$j]->position_boat = 0;
-            $this->data .= "{$this->adult[$j]->name} crossing the river" . PHP_EOL;
+            $this->adult[$j]->setPositionCoast('right');
+            $this->data .= "{$this->adult[$j]->person} crossing the river" . PHP_EOL;
             $this->crossingSecondChild();
         }
 
         $this->crossingTwoChildren();
-        $this->two_children[0]->position_boat = 0;
         $this->data .= "Fishman has a boat.";
     }
 
-    public function storeToFile($file_name)
+    private function crossingTwoChildren()
     {
-        $this->crossing();
-        file_put_contents($file_name, $this->data);
+        $this->twoChildren[0]->setPositionCoast('right');
+        $this->twoChildren[1]->setPositionCoast('right');
+        $this->data .= "Children ({$this->twoChildren[0]->person} and {$this->twoChildren[1]->person}) crossing the river.(Now they are on the {$this->twoChildren[0]->getPositionCoast()} coast)" . PHP_EOL;
+    }
+
+    private function crossingFirstChild()
+    {
+        $this->twoChildren[0]->setPositionCoast('left');
+        $this->data .= "{$this->twoChildren[0]->person} crossing the river.Now he (she) is on the {$this->twoChildren[0]->getPositionCoast()} coast." . PHP_EOL;
+    }
+
+    private function crossingSecondChild()
+    {
+        $this->twoChildren[1]->setPositionCoast('left');
+        $this->data .= "{$this->twoChildren[1]->person} crossing the river.Now he (she) is on the {$this->twoChildren[1]->getPositionCoast()} coast." . PHP_EOL;
     }
 }
 

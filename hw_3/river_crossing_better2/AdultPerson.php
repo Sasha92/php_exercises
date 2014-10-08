@@ -1,10 +1,10 @@
 <?php
 
-namespace river_crossing_better;
+namespace river_crossing_better2;
 
 require_once 'Person.php';
 
 class AdultPerson extends Person
 {
-    public $person_type = 'adult';
+    public $personType = 'adult';
 } 

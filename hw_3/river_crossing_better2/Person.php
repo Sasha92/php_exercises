@@ -1,18 +1,28 @@
 <?php
 
-namespace river_crossing_better;
+namespace river_crossing_better2;
 
 class Person
 {
-   public $name;
-    public $position_boat = 0;
-    public $position_coast = 'left';
+    public $person;
+    public $positionCoast = 'left';
+    public $personType;
 
-    public function __construct($name)
+    public function __construct($person)
     {
-        if (!is_string($name)) {
-            throw new Exception ('Value isn\'t string');
+        if (!is_string($person)) {
+            throw new \Exception ('Value isn\'t string');
         }
-        $this->name = $name;
+        $this->person = $person;
+    }
+
+    public function setPositionCoast($positionCoast)
+    {
+        $this->positionCoast = $positionCoast;
+    }
+
+    public function getPositionCoast()
+    {
+        return $this->positionCoast;
     }
 } 

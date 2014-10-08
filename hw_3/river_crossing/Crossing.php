@@ -10,7 +10,7 @@
 // какой берег перевез. Писать код на PHP5. Программа должна поддерживать
 // расширяемость, к примеру, если захотим добавить еще детей.
 
-namespace river_crossing_better2;
+namespace river_crossing;
 
 require_once 'AdultPerson.php';
 require_once 'ChildPerson.php';
@@ -18,20 +18,16 @@ require_once 'Person.php';
 
 class Crossing
 {
-    private $twoChildren = array();
+    private $children = array();
     private $adult = array();
     private $data;
 
     public function addPerson(Person $person)
     {
-        $numberChildren = count($this->twoChildren);
-
-        if ($person->personType === 'child' && $numberChildren < 2) {
-            $this->twoChildren[] = $person;
+        if ($person->personType === 'child') {
+            $this->children[] = $person;
         }
-        // Array adult has adult persons and another children, that not in array two_children
-        if ($person->personType === 'adult' ||
-            ($person->personType === 'child' && !in_array($person, $this->twoChildren))) {
+        if ($person->personType === 'adult') {
             $this->adult[] = $person;
         }
     }
@@ -44,7 +40,7 @@ class Crossing
 
     private function crossing()
     {
-        $numberChildren = count($this->twoChildren);
+        $numberChildren = count($this->children);
         if ($numberChildren < 2){
             throw new \Exception ('Crossing impossible. Because number children is less 2.');
         }
@@ -54,9 +50,25 @@ class Crossing
 
             $this->crossingTwoChildren();
             $this->crossingFirstChild();
+
             $this->adult[$j]->setPositionCoast('right');
             $this->data .= "{$this->adult[$j]->person} crossing the river" . PHP_EOL;
+
             $this->crossingSecondChild();
+        }
+
+
+        if ($numberChildren > 2) {
+            for ($j = 2; $j < $numberChildren; $j++) {
+
+                $this->crossingTwoChildren();
+                $this->crossingFirstChild();
+
+                $this->children[$j]->setPositionCoast('right');
+                $this->data .= "{$this->children[$j]->person} crossing the river" . PHP_EOL;
+
+                $this->crossingSecondChild();
+            }
         }
 
         $this->crossingTwoChildren();
@@ -65,21 +77,21 @@ class Crossing
 
     private function crossingTwoChildren()
     {
-        $this->twoChildren[0]->setPositionCoast('right');
-        $this->twoChildren[1]->setPositionCoast('right');
-        $this->data .= "Children ({$this->twoChildren[0]->person} and {$this->twoChildren[1]->person}) crossing the river.(Now they are on the {$this->twoChildren[0]->getPositionCoast()} coast)" . PHP_EOL;
+        $this->children[0]->setPositionCoast('right');
+        $this->children[1]->setPositionCoast('right');
+        $this->data .= "Children ({$this->children[0]->person} and {$this->children[1]->person}) crossing the river.(Now they are on the {$this->children[0]->getPositionCoast()} coast)" . PHP_EOL;
     }
 
     private function crossingFirstChild()
     {
-        $this->twoChildren[0]->setPositionCoast('left');
-        $this->data .= "{$this->twoChildren[0]->person} crossing the river.Now he (she) is on the {$this->twoChildren[0]->getPositionCoast()} coast." . PHP_EOL;
+        $this->children[0]->setPositionCoast('left');
+        $this->data .= "{$this->children[0]->person} crossing the river.Now he (she) is on the {$this->children[0]->getPositionCoast()} coast." . PHP_EOL;
     }
 
     private function crossingSecondChild()
     {
-        $this->twoChildren[1]->setPositionCoast('left');
-        $this->data .= "{$this->twoChildren[1]->person} crossing the river.Now he (she) is on the {$this->twoChildren[1]->getPositionCoast()} coast." . PHP_EOL;
+        $this->children[1]->setPositionCoast('left');
+        $this->data .= "{$this->children[1]->person} crossing the river.Now he (she) is on the {$this->children[1]->getPositionCoast()} coast." . PHP_EOL;
     }
 }
 

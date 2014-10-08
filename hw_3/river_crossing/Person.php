@@ -1,6 +1,6 @@
 <?php
 
-namespace river_crossing_better2;
+namespace river_crossing;
 
 class Person
 {
